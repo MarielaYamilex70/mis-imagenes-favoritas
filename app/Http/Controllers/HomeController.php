@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Image;
+
 
 class HomeController extends Controller
 {
@@ -23,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $datos['images'] = Image::where('user_id', auth()->user()->id)->paginate(5);
+        return view('images.index', $datos);
+
     }
 }
